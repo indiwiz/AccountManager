@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountsManager.Web", "AccountsManager.Web\AccountsManager.Web.csproj", "{9521EB14-698D-43DF-AF4F-9A6F8D07BA5B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManager.DataAccess", "AccountManager.DataAccess\AccountManager.DataAccess.csproj", "{C10050C8-5F3A-46B0-8F67-B8084638CDEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9521EB14-698D-43DF-AF4F-9A6F8D07BA5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9521EB14-698D-43DF-AF4F-9A6F8D07BA5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9521EB14-698D-43DF-AF4F-9A6F8D07BA5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C10050C8-5F3A-46B0-8F67-B8084638CDEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C10050C8-5F3A-46B0-8F67-B8084638CDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C10050C8-5F3A-46B0-8F67-B8084638CDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C10050C8-5F3A-46B0-8F67-B8084638CDEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
