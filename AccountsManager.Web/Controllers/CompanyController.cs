@@ -1,10 +1,12 @@
 using AccountManager.DataAccess.Entities;
 using AccountManager.DataAccess.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace AccountsManager.Web.Controllers
 {
+    [Authorize]
     public class CompanyController : Controller
     {
         private readonly ICompanyService _companyService;
