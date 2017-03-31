@@ -7,6 +7,8 @@ using AccountManager.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using AccountManager.DataAccess.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using AccountManager.DataAccess.Entities;
 
 namespace AccountsManager.Web
 {
@@ -38,6 +40,9 @@ namespace AccountsManager.Web
 
             services.AddMvc(options => options.Filters.Add(new RequireHttpsAttribute()));
 
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<AccountsDbContext>();
+
             // Add application services.
 
             services.AddScoped<ICompanyService, CompanyService>();
@@ -60,10 +65,9 @@ namespace AccountsManager.Web
                 app.UseExceptionHandler("/Home/Error");
             }
 
-
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            //app.UseIdentity();
+            app.UseIdentity();
 
             // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
             var googleOptions = new GoogleOptions()
