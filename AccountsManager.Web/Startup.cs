@@ -40,6 +40,9 @@ namespace AccountsManager.Web
 
             services.AddMvc(options => options.Filters.Add(new RequireHttpsAttribute()));
 
+            services.Configure<IdentityOptions>( options => 
+                options.Cookies.ApplicationCookie.LoginPath = "/UserAccount/Login");
+
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<AccountsDbContext>();
 
@@ -65,7 +68,7 @@ namespace AccountsManager.Web
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseDefaultFiles();
+            app.UseFileServer();
             app.UseStaticFiles();
             app.UseIdentity();
 
