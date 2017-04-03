@@ -1,7 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-
-@inject SignInManager<User> SignInManager
-@inject UserManager<User> UserManager
+﻿
 @inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 <!DOCTYPE html>
 <html>
@@ -40,22 +37,8 @@
                     <li><a asp-area="" asp-controller="Company" asp-action="Index">Company</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-
                 </ul>
-                <div>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <div>@UserManager.GetUserName(User)</div>
-                        <form method="post" asp-controller="UserAccount" asp-action="Logout">
-                            <input type="submit" value="Logout" />
-                        </form>
-                    }
-                    else
-                    {
-                        <a asp-controller="UserAccount" asp-action="Login">Login</a>
-                        <a asp-controller="UserAccount" asp-action="Register">Register</a>
-                    }
-                </div>
+                @await Html.PartialAsync("_LoginPartial")
             </div>
 
         </div>
