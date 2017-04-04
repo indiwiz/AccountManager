@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AccountManager.Web.Models.AccountViewModels
 {
@@ -11,5 +7,9 @@ namespace AccountManager.Web.Models.AccountViewModels
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+
+        [Required, MaxLength(256)]
+        [Display(Name = "Display Name")]
+        public string DisplayName { get; set; }
     }
 }
