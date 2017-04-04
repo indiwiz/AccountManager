@@ -29,7 +29,7 @@ namespace AccountsManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Username };
+                var user = new User { UserName = model.Username, DisplayName = model.DisplayName };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -68,6 +68,7 @@ namespace AccountsManager.Web.Controllers
             {
                 var result = await _signInManager.PasswordSignInAsync(
                     model.Username, model.Password, model.RememberMe, false);
+                
                 if (result.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(model.ReturnUrl) &&

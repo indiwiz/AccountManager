@@ -5,6 +5,9 @@ namespace AccountsManager.Web.ViewModels.UserAccount
     public class RegisterViewModel
     {
         [Required, MaxLength(256)]
+        public string DisplayName { get; set; }
+
+        [Required, MaxLength(256)]
         public string Username { get; set; }
 
         [Required, DataType(DataType.Password)]
