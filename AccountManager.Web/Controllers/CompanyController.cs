@@ -9,9 +9,9 @@ namespace AccountManager.Web.Controllers
     [Authorize]
     public class CompanyController : Controller
     {
-        private readonly ICompanyService _companyService;
+        private readonly ICompanyRepository _companyService;
 
-        public CompanyController(ICompanyService companyService)
+        public CompanyController(ICompanyRepository companyService)
         {
             _companyService = companyService;
         }

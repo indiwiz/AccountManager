@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace AccountManager.DataAccess.Services
 {
-    public interface ICompanyService
+    public interface ICompanyRepository
     {
         IEnumerable<Company> GetAll();
 
@@ -14,10 +14,10 @@ namespace AccountManager.DataAccess.Services
         Company GetByIdentifier(string identifier);
     }
 
-    public class CompanyService : ICompanyService
+    public class CompanyRepository : ICompanyRepository
     {
         private readonly AccountsDbContext _dbContext;
-        public CompanyService(AccountsDbContext dbContext)
+        public CompanyRepository(AccountsDbContext dbContext)
         {
             _dbContext = dbContext;
         }
