@@ -5,37 +5,35 @@ using System.Linq;
 
 namespace AccountManager.DataAccess.Repositories
 {
-    public interface ICompanyRepository
+    public interface ICompanyRepository : IBaseRepository
     {
         IEnumerable<Company> GetAll();
 
-        Task Create(Company company);
+        void Create(Company company);
 
         Company GetByIdentifier(string identifier);
     }
 
-    public class CompanyRepository : ICompanyRepository
+    public class CompanyRepository : BaseRepository, ICompanyRepository
     {
-        private readonly AccountsDbContext _dbContext;
         public CompanyRepository(AccountsDbContext dbContext)
+            : base(dbContext)
         {
-            _dbContext = dbContext;
         }
 
         public IEnumerable<Company> GetAll()
         {
-            return _dbContext.Companies;
+            return DbContext.Companies;
         }
 
-        public async Task Create(Company company)
+        public void Create(Company company)
         {
-            _dbContext.Companies.Add(company);
-            await _dbContext.SaveChangesAsync();
+            DbContext.Companies.Add(company);
         }
 
         public Company GetByIdentifier(string identifier)
         {
-            return _dbContext.Companies.FirstOrDefault(c => c.Identifier == identifier);
+            return DbContext.Companies.FirstOrDefault(c => c.Identifier == identifier);
         }
     }
 }
