@@ -30,7 +30,8 @@ namespace AccountManager.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Company company)
         {
-            await _companyService.Create(company);
+            _companyService.Create(company);
+            await _companyService.SaveChangesAsync();
             return RedirectToAction("Details", new { id = company.Identifier });
         }
 
