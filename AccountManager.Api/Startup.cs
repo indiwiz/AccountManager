@@ -30,7 +30,12 @@ namespace AccountManager.Api
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc(setupAction =>
+            {
+                setupAction.ReturnHttpNotAcceptable = true;
+            });
+
+
             var connectionString = Configuration["connectionStrings:DefaultConnectionString"];
             services.AddDbContext<AccountsDbContext>(o => o.UseSqlServer(connectionString));
             services.AddScoped<ICompanyRepository, CompanyRepository>();
