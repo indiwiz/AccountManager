@@ -1,7 +1,10 @@
-﻿using AccountManager.Api.Models;
+﻿using System;
+using AccountManager.Api.Models;
 using AccountManager.DataAccess.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using AccountManager.DataAccess.Entities;
 using static AutoMapper.Mapper;
 
 namespace AccountManager.Api.Controllers
@@ -34,6 +37,28 @@ namespace AccountManager.Api.Controllers
             var contract = _contractRepository.GetContractForCompany(company.Id, id);
             if (contract == null) return NotFound();
             return Ok(Map<ContractReadDto>(contract));
+        }
+
+        [HttpPost()]
+        public async Task<IActionResult> CreateContract(string identifier, [FromBody] ContractCreateDto contractCreateDto)
+        {
+            if (contractCreateDto == null) return BadRequest();
+
+            var company = _companyRepository.GetByIdentifier(identifier);
+            if (company == null) return NotFound();
+
+            var contract = Map<Contract>(contractCreateDto);
+            contract.CompanyId = company.Id;
+
+            _contractRepository.CreateContract(contract);
+            var saved = await _contractRepository.SaveChangesAsync();
+
+            if (!saved) throw new Exception("Failed to create the Contract");
+
+            var contractDto = Map<ContractReadDto>(contract);
+
+            return CreatedAtAction(nameof(GetContractForCompany), new { identifier = company.Identifier, id = contract.Id }, contractDto);
+
         }
     }
 }

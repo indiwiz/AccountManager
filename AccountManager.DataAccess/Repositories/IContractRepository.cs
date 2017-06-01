@@ -4,28 +4,32 @@ using System.Linq;
 
 namespace AccountManager.DataAccess.Repositories
 {
-    public interface IContractRepository
+    public interface IContractRepository : IBaseRepository
     {
         IEnumerable<Contract> GetContractsForCompany(int companyId);
         Contract GetContractForCompany(int companyId, int contractId);
+        void CreateContract(Contract contract);
     }
 
-    public class ContractRepository : IContractRepository
+    public class ContractRepository : BaseRepository, IContractRepository
     {
-        private readonly AccountsDbContext _dbContext;
-
         public ContractRepository(AccountsDbContext dbContext)
+            : base(dbContext)
         {
-            _dbContext = dbContext;
         }
 
         public IEnumerable<Contract> GetContractsForCompany(int companyId)
         {
-            return _dbContext.Contracts.Where(x => x.CompanyId == companyId);
+            return DbContext.Contracts.Where(x => x.CompanyId == companyId);
         }
         public Contract GetContractForCompany(int companyId, int contractId)
         {
-            return _dbContext.Contracts.FirstOrDefault(x => x.CompanyId == companyId && x.Id == contractId);
+            return DbContext.Contracts.FirstOrDefault(x => x.CompanyId == companyId && x.Id == contractId);
+        }
+
+        public void CreateContract(Contract contract)
+        {
+            DbContext.Contracts.Add(contract);
         }
     }
 }

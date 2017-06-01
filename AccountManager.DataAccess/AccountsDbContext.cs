@@ -21,6 +21,7 @@ namespace AccountManager.DataAccess
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.AddConfiguration(new CompanyConfiguration());
+            modelBuilder.AddConfiguration(new ContractConfiguration());
         }
     }
 }

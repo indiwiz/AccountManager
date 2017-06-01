@@ -70,6 +70,7 @@ namespace AccountManager.Api
                 cfg.CreateMap<Company, CompanyReadDto>();
                 cfg.CreateMap<Contract, ContractReadDto>();
                 cfg.CreateMap<CompanyCreateDto, Company>();
+                cfg.CreateMap<ContractCreateDto, Contract>();
             });
 
             app.UseMvc();

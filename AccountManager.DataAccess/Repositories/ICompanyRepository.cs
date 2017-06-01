@@ -1,8 +1,6 @@
 ﻿using AccountManager.DataAccess.Entities;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace AccountManager.DataAccess.Repositories
 {
