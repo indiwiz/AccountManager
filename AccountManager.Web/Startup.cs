@@ -1,6 +1,6 @@
 ﻿using AccountManager.DataAccess;
 using AccountManager.DataAccess.Entities;
-using AccountManager.DataAccess.Services;
+using AccountManager.DataAccess.Repositories;
 using AccountManager.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

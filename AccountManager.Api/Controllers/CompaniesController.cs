@@ -1,5 +1,5 @@
 ﻿using AccountManager.Api.Models;
-using AccountManager.DataAccess.Services;
+using AccountManager.DataAccess.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using static AutoMapper.Mapper;

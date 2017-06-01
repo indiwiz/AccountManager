@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AccountManager.Api.Models;
+﻿using AccountManager.Api.Models;
 using AccountManager.DataAccess;
 using AccountManager.DataAccess.Entities;
-using AccountManager.DataAccess.Services;
+using AccountManager.DataAccess.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -38,6 +34,7 @@ namespace AccountManager.Api
             var connectionString = Configuration["connectionStrings:DefaultConnectionString"];
             services.AddDbContext<AccountsDbContext>(o => o.UseSqlServer(connectionString));
             services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<IContractRepository, ContractRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +61,7 @@ namespace AccountManager.Api
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Company, CompanyDto>();
+                cfg.CreateMap<Contract, ContractDto>();
             });
 
             app.UseMvc();

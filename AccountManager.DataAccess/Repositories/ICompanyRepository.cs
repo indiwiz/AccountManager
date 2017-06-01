@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 
-namespace AccountManager.DataAccess.Services
+namespace AccountManager.DataAccess.Repositories
 {
     public interface ICompanyRepository
     {

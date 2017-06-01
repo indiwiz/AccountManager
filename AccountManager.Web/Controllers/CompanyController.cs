@@ -1,5 +1,5 @@
 using AccountManager.DataAccess.Entities;
-using AccountManager.DataAccess.Services;
+using AccountManager.DataAccess.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
