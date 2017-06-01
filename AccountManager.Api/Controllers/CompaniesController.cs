@@ -23,7 +23,7 @@ namespace AccountManager.Api.Controllers
         public IActionResult GetCompanies()
         {
             var companies = _companyRepository.GetAll();
-            var dtos = Map<IEnumerable<CompanyDto>>(companies);
+            var dtos = Map<IEnumerable<CompanyReadDto>>(companies);
             return Ok(dtos);
         }
 
@@ -32,12 +32,12 @@ namespace AccountManager.Api.Controllers
         {
             var company = _companyRepository.GetByIdentifier(id);
             if (company == null) return NotFound();
-            var dto = Map<CompanyDto>(company);
+            var dto = Map<CompanyReadDto>(company);
             return Ok(dto);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCompany([FromBody]CreateCompanyDto createCompanyDto)
+        public async Task<IActionResult> CreateCompany([FromBody]CompanyCreateDto createCompanyDto)
         {
             if (createCompanyDto == null) return BadRequest();
             var company = Map<Company>(createCompanyDto);
@@ -46,7 +46,7 @@ namespace AccountManager.Api.Controllers
             var saved = await _companyRepository.SaveChangesAsync();
             if (!saved) throw new Exception("Failed to create the Company");
 
-            var companyDto = Map<CompanyDto>(company);
+            var companyDto = Map<CompanyReadDto>(company);
 
             return CreatedAtAction(nameof(GetCompany), new { id = company.Identifier }, companyDto);
         }

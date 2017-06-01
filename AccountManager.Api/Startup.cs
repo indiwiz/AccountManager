@@ -67,9 +67,9 @@ namespace AccountManager.Api
 
             AutoMapper.Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<Company, CompanyDto>();
-                cfg.CreateMap<Contract, ContractDto>();
-                cfg.CreateMap<CreateCompanyDto, Company>();
+                cfg.CreateMap<Company, CompanyReadDto>();
+                cfg.CreateMap<Contract, ContractReadDto>();
+                cfg.CreateMap<CompanyCreateDto, Company>();
             });
 
             app.UseMvc();

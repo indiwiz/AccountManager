@@ -23,7 +23,7 @@ namespace AccountManager.Api.Controllers
             var company = _companyRepository.GetByIdentifier(identifier);
             if (company == null) return NotFound();
             var contracts = _contractRepository.GetContractsForCompany(company.Id);
-            return Ok(Map<IEnumerable<ContractDto>>(contracts));
+            return Ok(Map<IEnumerable<ContractReadDto>>(contracts));
         }
 
         [HttpGet("{id}")]
@@ -33,7 +33,7 @@ namespace AccountManager.Api.Controllers
             if (company == null) return NotFound();
             var contract = _contractRepository.GetContractForCompany(company.Id, id);
             if (contract == null) return NotFound();
-            return Ok(Map<ContractDto>(contract));
+            return Ok(Map<ContractReadDto>(contract));
         }
     }
 }

@@ -2,10 +2,10 @@
 
 namespace AccountManager.Api.Models
 {
-    public class ContractDto
+    public class ContractReadDto
     {
         public string Description { get; set; }
         public DateTime StartDate { get; set; }
-        //public DateTime EndDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

@@ -1,9 +1,8 @@
 ﻿namespace AccountManager.Api.Models
 {
-    public class CreateCompanyDto
+    public class CompanyReadDto
     {
         public string Name { get; set; }
-        public string CompanyRegistrationNumber { get; set; }
         public string Identifier { get; set; }
     }
 }
