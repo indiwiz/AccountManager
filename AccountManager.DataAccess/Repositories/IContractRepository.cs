@@ -9,6 +9,8 @@ namespace AccountManager.DataAccess.Repositories
         IEnumerable<Contract> GetContractsForCompany(int companyId);
         Contract GetContractForCompany(int companyId, int contractId);
         void CreateContract(Contract contract);
+        void UpdateContract(Contract contract);
+        void DeleteContract(Contract contract);
     }
 
     public class ContractRepository : BaseRepository, IContractRepository
@@ -30,6 +32,16 @@ namespace AccountManager.DataAccess.Repositories
         public void CreateContract(Contract contract)
         {
             DbContext.Contracts.Add(contract);
+        }
+
+        public void UpdateContract(Contract contract)
+        {
+
+        }
+
+        public void DeleteContract(Contract contract)
+        {
+            DbContext.Contracts.Remove(contract);
         }
     }
 }

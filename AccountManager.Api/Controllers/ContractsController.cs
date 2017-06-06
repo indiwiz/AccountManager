@@ -60,5 +60,45 @@ namespace AccountManager.Api.Controllers
             return CreatedAtAction(nameof(GetContractForCompany), new { identifier = company.Identifier, id = contract.Id }, contractDto);
 
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateContract(string identifier, int id, [FromBody] ContractUpdateDto contractUpdateDto)
+        {
+            if (contractUpdateDto == null) return BadRequest();
+
+            var company = _companyRepository.GetByIdentifier(identifier);
+            if (company == null) return NotFound();
+
+            var contract = _contractRepository.GetContractForCompany(company.Id, id);
+            if (contract == null) return NotFound();
+
+            Map(contractUpdateDto, contract);
+
+            _contractRepository.UpdateContract(contract);
+
+            var saved = await _contractRepository.SaveChangesAsync();
+
+            if (!saved) throw new Exception("Failed to update the Contract");
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteContract(string identifier, int id)
+        {
+            var company = _companyRepository.GetByIdentifier(identifier);
+            if (company == null) return NotFound();
+
+            var contract = _contractRepository.GetContractForCompany(company.Id, id);
+            if (contract == null) return NotFound();
+
+            _contractRepository.DeleteContract(contract);
+
+            var saved = await _contractRepository.SaveChangesAsync();
+
+            if (!saved) throw new Exception("Failed to delete the Contract");
+
+            return NoContent();
+        }
     }
 }
