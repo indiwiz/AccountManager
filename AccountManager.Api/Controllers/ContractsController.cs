@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AccountManager.DataAccess.Entities;
 using static AutoMapper.Mapper;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Server.Kestrel.Internal.Http;
 
 namespace AccountManager.Api.Controllers
 {
@@ -97,6 +99,33 @@ namespace AccountManager.Api.Controllers
             var saved = await _contractRepository.SaveChangesAsync();
 
             if (!saved) throw new Exception("Failed to delete the Contract");
+
+            return NoContent();
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PartiallyUpdateContract(string identifier, int id,
+            [FromBody] JsonPatchDocument<ContractUpdateDto> patchDoc)
+        {
+            if (patchDoc == null) return BadRequest();
+
+            var company = _companyRepository.GetByIdentifier(identifier);
+            if (company == null) return NotFound();
+
+            var contract = _contractRepository.GetContractForCompany(company.Id, id);
+            if (contract == null) return NotFound();
+
+            var  contractToPatch  = Map<ContractUpdateDto>(contract);
+
+            patchDoc.ApplyTo(contractToPatch);
+
+            Map(contractToPatch, contract);
+
+            _contractRepository.UpdateContract(contract);
+
+            var saved = await _contractRepository.SaveChangesAsync();
+
+            if (!saved) throw new Exception("Failed to update the Contract");
 
             return NoContent();
         }
