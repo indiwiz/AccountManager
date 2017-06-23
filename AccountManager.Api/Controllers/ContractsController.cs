@@ -127,7 +127,19 @@ namespace AccountManager.Api.Controllers
 
             var  contractToPatch  = Map<ContractUpdateDto>(contract);
 
-            patchDoc.ApplyTo(contractToPatch);
+            patchDoc.ApplyTo(contractToPatch, ModelState);
+
+            if(contractToPatch.EndDate <= contractToPatch.StartDate)
+            {
+                ModelState.AddModelError(nameof(contractToPatch.EndDate), "Contract End Date has to be greater than Start Date");
+            }
+
+            TryValidateModel(contractToPatch);
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
 
             Map(contractToPatch, contract);
 
