@@ -1,12 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AccountManager.Api.Models
 {
-    public class ContractUpdateDto
+    public class ContractUpdateDto : ContractManipulationDto
     {
-        public string CompanyIdentifier { get; set; }
-        public string Description { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        [Required]
+        public override DateTime? EndDate { get => base.EndDate; set => base.EndDate = value; }
     }
 }

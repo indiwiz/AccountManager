@@ -1,13 +1,13 @@
-﻿using System;
+﻿using AccountManager.Api.Helper;
 using AccountManager.Api.Models;
+using AccountManager.DataAccess.Entities;
 using AccountManager.DataAccess.Repositories;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AccountManager.DataAccess.Entities;
 using static AutoMapper.Mapper;
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.Server.Kestrel.Internal.Http;
 
 namespace AccountManager.Api.Controllers
 {
@@ -46,6 +46,11 @@ namespace AccountManager.Api.Controllers
         {
             if (contractCreateDto == null) return BadRequest();
 
+            if(!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
             var company = _companyRepository.GetByIdentifier(identifier);
             if (company == null) return NotFound();
 
@@ -67,6 +72,11 @@ namespace AccountManager.Api.Controllers
         public async Task<IActionResult> UpdateContract(string identifier, int id, [FromBody] ContractUpdateDto contractUpdateDto)
         {
             if (contractUpdateDto == null) return BadRequest();
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
 
             var company = _companyRepository.GetByIdentifier(identifier);
             if (company == null) return NotFound();
