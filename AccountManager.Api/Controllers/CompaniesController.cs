@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AccountManager.DataAccess.Entities;
 using static AutoMapper.Mapper;
+using AccountManager.Api.Helper;
 
 namespace AccountManager.Api.Controllers
 {
@@ -40,6 +41,24 @@ namespace AccountManager.Api.Controllers
         public async Task<IActionResult> CreateCompany([FromBody]CompanyCreateDto createCompanyDto)
         {
             if (createCompanyDto == null) return BadRequest();
+
+            if (createCompanyDto.Identifier.Length > 0)
+            {
+                var existingCompany = _companyRepository.GetByIdentifier(createCompanyDto.Identifier);
+                if (existingCompany != null)
+                {
+                    //TODO Check for duplicate company registration number
+                    ModelState.AddModelError(nameof(existingCompany.Identifier), 
+                        "The identifier is not available, please try again.");
+                }
+
+            }
+
+            if(!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
             var company = Map<Company>(createCompanyDto);
             _companyRepository.Create(company);
 
