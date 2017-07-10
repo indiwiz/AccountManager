@@ -29,6 +29,7 @@ namespace AccountManager.Api.Controllers
         }
 
         [HttpGet("{id}", Name = "GetCompany")]
+        [HttpHead("{id}")]
         public IActionResult GetCompany(string id)
         {
             var company = _companyRepository.GetByIdentifier(id);
